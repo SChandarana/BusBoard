@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using RestSharp;
+﻿using RestSharp;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api
 {
-    class PostcodeApiHelper
+    public class PostcodeApiHelper
     {
         private readonly RestClient client;
 

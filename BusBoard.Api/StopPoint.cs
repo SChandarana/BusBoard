@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace BusBoard.ConsoleApp
+namespace BusBoard.Api
 {
-    class StopPoint
+    public class StopPoint
     {
         public string naptanId { get; set; }
     }
