@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace BusBoard.ConsoleApp
 {
@@ -38,7 +37,7 @@ namespace BusBoard.ConsoleApp
 
         public string GetBus()
         {
-            return $"Bus towards: {towards} - Arriving to {stationName} at approximately {expectedArrival:HH:mm} ";
+            return $"Bus towards: {towards} - Arriving to {stationName} at approximately {expectedArrival:HH:mm}";
         }
     }
 }

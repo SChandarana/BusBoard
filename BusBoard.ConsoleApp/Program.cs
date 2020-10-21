@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using RestSharp;
 
 namespace BusBoard.ConsoleApp
 {
@@ -10,8 +9,7 @@ namespace BusBoard.ConsoleApp
     static void Main(string[] args)
     {
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-        var client = new RestClient("https://api.tfl.gov.uk");
-
+        var tflApiHelper = new TflApiHelper();
         while (true)
         {
             Console.WriteLine("Welcome to the BusBoard please enter the bus stop code you wish to check or exit to exit");
@@ -21,8 +19,8 @@ namespace BusBoard.ConsoleApp
                 Console.WriteLine("Thank you for using BusBoard");
                 break;
             }
-            var buses = Helpers.GetBuses(input, client);
-            var topFive = buses.Take(5).Select(o => o.GetBus());
+            var buses = tflApiHelper.GetBusData(input);
+            var topFive = buses.Take(5).Select(bus => bus.GetBus());
             Console.WriteLine(string.Join("\n", topFive));
         }
     }
