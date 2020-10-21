@@ -19,8 +19,8 @@ namespace BusBoard.ConsoleApp
                 Console.WriteLine("Thank you for using BusBoard");
                 break;
             }
-            var buses = tflApiHelper.GetBusData(input);
-            var topFive = buses.Take(5).Select(bus => bus.GetBus());
+            var buses = tflApiHelper.GetBuses(input);
+            var topFive = buses.Take(5).Select(bus => bus.GetBusData());
             Console.WriteLine(string.Join("\n", topFive));
         }
     }
