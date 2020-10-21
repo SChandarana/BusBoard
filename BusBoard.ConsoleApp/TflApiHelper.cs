@@ -15,9 +15,20 @@ namespace BusBoard.ConsoleApp
 
         public IEnumerable<BusEntry> GetBuses(string busStopCode)
         {
-            var request = new RestRequest($"/StopPoint/{busStopCode}/Arrivals", DataFormat.Json);
-            var response = client.Execute<List<BusEntry>>(request).Data;
-            return response.OrderBy(bus => bus.expectedArrival);
+            var request = new RestRequest($"/StopPoint/{busStopCode}/Arrivals", Method.GET, DataFormat.Json);
+            return client.Execute<List<BusEntry>>(request).Data;
+        }
+
+        public IEnumerable<StopPoint> GetStopPoints(Coordinate coordinate)
+        {
+            var request = new RestRequest("StopPoint", Method.GET, DataFormat.Json);
+            request.AddParameter("stopTypes", "NaptanPublicBusCoachTram");
+            request.AddParameter("radius", "800");
+            request.AddParameter("modes","bus");
+            request.AddParameter("lat", coordinate.latitude);
+            request.AddParameter("lon", coordinate.longitude);
+            var response =  client.Execute<StopPointList>(request).Data;
+            return response.stopPoints;
         }
     }
 }
