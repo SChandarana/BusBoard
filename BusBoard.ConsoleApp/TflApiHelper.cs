@@ -13,10 +13,15 @@ namespace BusBoard.ConsoleApp
             client = new RestClient("https://api.tfl.gov.uk");
         }
 
-        public IEnumerable<BusEntry> GetBuses(string busStopCode)
+        public string GetTopFiveBuses(string busStopCode)
         {
             var request = new RestRequest($"/StopPoint/{busStopCode}/Arrivals", Method.GET, DataFormat.Json);
-            return client.Execute<List<BusEntry>>(request).Data;
+            var response = client.Execute<List<BusEntry>>(request).Data;
+            var topFive = response
+                .OrderBy(bus => bus.expectedArrival)
+                .Take(5)
+                .Select(bus => bus.GetBusData());
+            return string.Join("\n", topFive);
         }
 
         public IEnumerable<StopPoint> GetStopPoints(Coordinate coordinate)
@@ -27,8 +32,7 @@ namespace BusBoard.ConsoleApp
             request.AddParameter("modes","bus");
             request.AddParameter("lat", coordinate.latitude);
             request.AddParameter("lon", coordinate.longitude);
-            var response =  client.Execute<StopPointList>(request).Data;
-            return response.stopPoints;
+            return client.Execute<StopPointList>(request).Data.stopPoints;
         }
     }
 }
