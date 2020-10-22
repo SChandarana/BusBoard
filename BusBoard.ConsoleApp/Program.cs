@@ -28,8 +28,8 @@ namespace BusBoard.ConsoleApp
             var stopPoints = tflApiHelper.GetStopPoints(coordinate);
             var output = stopPoints
                 .Take(2)
-                .Select(stop => tflApiHelper.GetTopFiveBuses(stop.naptanId));
-            Console.WriteLine(string.Join("\n", output));
+                .SelectMany(stop => tflApiHelper.GetTopFiveBuses(stop.naptanId));
+            Console.WriteLine(string.Join("\n", output.Select(bus => bus.GetBusData())));
         }
     }
   }
