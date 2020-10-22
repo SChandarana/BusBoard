@@ -32,7 +32,7 @@ namespace BusBoard.ConsoleApp
             request.AddParameter("modes","bus");
             request.AddParameter("lat", coordinate.latitude);
             request.AddParameter("lon", coordinate.longitude);
-            return client.Execute<StopPointList>(request).Data.stopPoints;
+            return client.Execute<StopPointList>(request).Data.stopPoints ?? new List<StopPoint>();
         }
     }
 }

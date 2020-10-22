@@ -25,16 +25,9 @@ namespace BusBoard.ConsoleApp
 
             var coordinate = postcodeApiHelper.GetPostcodeCoordinates(input);
             var stopPoints = tflApiHelper.GetStopPoints(coordinate);
-            var output = new List<string>();
-
-            if (stopPoints != null)
-            {
-                output = stopPoints
-                    .Take(2)
-                    .Select(stop => tflApiHelper.GetTopFiveBuses(stop.naptanId))
-                    .ToList();
-            }
-
+            var output = stopPoints
+                .Take(2)
+                .Select(stop => tflApiHelper.GetTopFiveBuses(stop.naptanId));
             Console.WriteLine(string.Join("\n", output));
         }
     }
