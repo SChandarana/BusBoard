@@ -30,8 +30,8 @@ namespace BusBoard.ConsoleApp
             request.AddParameter("stopTypes", "NaptanPublicBusCoachTram");
             request.AddParameter("radius", "800");
             request.AddParameter("modes","bus");
-            request.AddParameter("lat", coordinate.latitude);
-            request.AddParameter("lon", coordinate.longitude);
+            request.AddParameter("lat", coordinate?.latitude ?? 0);
+            request.AddParameter("lon", coordinate?.longitude ?? 0);
             return client.Execute<StopPointList>(request).Data.stopPoints ?? new List<StopPoint>();
         }
     }
