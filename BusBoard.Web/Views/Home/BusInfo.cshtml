@@ -5,25 +5,28 @@
 
 <h2>Closest two Bus Stops with bus arrival times</h2>
 
+<h3>@(Model.Stops.Any() ? "" : "No stops found nearby")</h3>
 @foreach (var stop in Model.Stops)
 {
-    <div style="padding-top: 15px">
+    <h3>@(stop.Any() ? stop.First().stationName : "No buses found")</h3>
+    <div style="padding-bottom: 15px">
         <table class="table table-striped">
-            <tr>
-                <th>Bus Towards</th>
-                <th>From stop</th>
-                <th>Arriving at</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th style="width: 40%">Bus Towards</th>
+                    <th style="width: 40%">From stop</th>
+                    <th style="width: 20%">Arriving at</th>
+                </tr>
+            </thead>
 
             @foreach (var bus in stop)
             {
                 <tr>
-                    <th>@bus.towards</th>
-                    <th>@bus.stationName</th>
-                    <th>@bus.expectedArrival.ToString("HH:mm")</th>
+                    <td>@bus.towards</td>
+                    <td>@bus.stationName</td>
+                    <td>@bus.expectedArrival.ToString("HH:mm")</td>
                 </tr>
             }
-
         </table>
     </div>
 }
