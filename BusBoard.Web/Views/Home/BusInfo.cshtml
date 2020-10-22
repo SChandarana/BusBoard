@@ -3,8 +3,27 @@
   ViewBag.Title = "Bus Information";
 }
 
-<h2>BusInfo</h2>
+<h2>Closest two Bus Stops with bus arrival times</h2>
 
-<div class="row">
-    <p>You entered postcode @Model.PostCode</p>
-</div>
+@foreach (var stop in Model.Stops)
+{
+    <div style="padding-top: 15px">
+        <table class="table table-striped">
+            <tr>
+                <th>Bus Towards</th>
+                <th>From stop</th>
+                <th>Arriving at</th>
+            </tr>
+
+            @foreach (var bus in stop)
+            {
+                <tr>
+                    <th>@bus.towards</th>
+                    <th>@bus.stationName</th>
+                    <th>@bus.expectedArrival.ToString("HH:mm")</th>
+                </tr>
+            }
+
+        </table>
+    </div>
+}

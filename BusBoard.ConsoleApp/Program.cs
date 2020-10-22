@@ -29,7 +29,8 @@ namespace BusBoard.ConsoleApp
             var output = stopPoints
                 .Take(2)
                 .SelectMany(stop => tflApiHelper.GetTopFiveBuses(stop.naptanId));
-            Console.WriteLine(string.Join("\n", output.Select(bus => bus.GetBusData())));
+            Console.WriteLine(
+                string.Join("\n", output.Select(bus => bus.GetBusData())));
         }
     }
   }
