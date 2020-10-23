@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RestSharp;
 
 namespace BusBoard.Api
@@ -12,15 +13,13 @@ namespace BusBoard.Api
             client = new RestClient("https://api.tfl.gov.uk");
         }
 
-        public string GetTopFiveBuses(string busStopCode)
+        public IEnumerable<BusEntry> GetTopFiveBuses(string busStopCode)
         {
             var request = new RestRequest($"/StopPoint/{busStopCode}/Arrivals", Method.GET, DataFormat.Json);
             var response = client.Execute<List<BusEntry>>(request).Data;
-            var topFive = response
+            return response
                 .OrderBy(bus => bus.expectedArrival)
-                .Take(5)
-                .Select(bus => bus.GetBusData());
-            return string.Join("\n", topFive);
+                .Take(5);
         }
 
         public IEnumerable<StopPoint> GetStopPoints(Coordinate coordinate)
